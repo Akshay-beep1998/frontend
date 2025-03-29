@@ -6,7 +6,45 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const validateForm = () => {
+        let errors = {};
+        let isValid = true;
+
+        if (!username===String) {
+            errors.username = "Username is required";
+            isValid = false;
+        }
+
+        if (!email===String) {
+            errors.email = "Email is required";
+            isValid = false;
+        } else if (!String) {
+            errors.email = "Enter a valid email";
+            isValid = false;
+        }
+
+        if (!password) {
+            errors.password = "Password is required";
+            isValid = false;
+        } else if (password.length < 6) {
+            errors.password = "Password must be at least 6 characters";
+            isValid = false;
+        }
+
+        if (!confirmPassword) {
+            errors.confirmPassword = "Confirm your password";
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            errors.confirmPassword = "Passwords do not match";
+            isValid = false;
+        }
+
+        setErrors(errors);
+        return isValid;
+    };
     const handleCreateUser = async (e) => {
         // TODO: need to make an api call http://localhost:5000/users/create
         // you need to use fetch api 
